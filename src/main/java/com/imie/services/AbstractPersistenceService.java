@@ -5,7 +5,7 @@ import javax.persistence.PersistenceContext;
 
 public abstract class AbstractPersistenceService<T> implements BasicCRUDOperations<T> {
 	
-	@PersistenceContext(unitName = "JpaEntities")
+	@PersistenceContext(unitName = "MediaStripe-entities")
 	protected EntityManager em;
 
 	public EntityManager getEm() {
