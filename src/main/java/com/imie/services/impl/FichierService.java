@@ -12,6 +12,13 @@ import com.imie.services.AbstractPersistenceService;
 @Stateless
 public class FichierService extends AbstractPersistenceService<Fichier> {
 
+	/** Constructeur par défaut. */
+	public FichierService() {
+		super();
+		// TODO : Corriger l'injection via @PersistenceContext
+		initEm();
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Fichier> findAll() {
