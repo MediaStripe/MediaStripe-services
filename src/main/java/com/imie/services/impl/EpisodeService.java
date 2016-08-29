@@ -12,6 +12,13 @@ import com.imie.services.AbstractPersistenceService;
 @Stateless
 public class EpisodeService extends AbstractPersistenceService<Episode> {
 
+	/** Constructeur par défaut. */
+	public EpisodeService() {
+		super();
+		// TODO : Corriger l'injection via @PersistenceContext
+		initEm();
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Episode> findAll() {

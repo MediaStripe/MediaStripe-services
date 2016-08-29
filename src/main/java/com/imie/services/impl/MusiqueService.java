@@ -12,6 +12,13 @@ import com.imie.services.AbstractPersistenceService;
 @Stateless
 public class MusiqueService extends AbstractPersistenceService<Musique> {
 
+	/** Constructeur par défaut. */
+	public MusiqueService() {
+		super();
+		// TODO : Corriger l'injection via @PersistenceContext
+		initEm();
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Musique> findAll() {

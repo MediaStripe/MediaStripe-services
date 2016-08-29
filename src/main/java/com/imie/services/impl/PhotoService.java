@@ -12,6 +12,13 @@ import com.imie.services.AbstractPersistenceService;
 @Stateless
 public class PhotoService extends AbstractPersistenceService<Photo> {
 
+	/** Constructeur par défaut. */
+	public PhotoService() {
+		super();
+		// TODO : Corriger l'injection via @PersistenceContext
+		initEm();
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Photo> findAll() {

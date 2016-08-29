@@ -12,6 +12,13 @@ import com.imie.services.AbstractPersistenceService;
 @Stateless
 public class PlaylistService extends AbstractPersistenceService<Playlist> {
 
+	/** Constructeur par défaut. */
+	public PlaylistService() {
+		super();
+		// TODO : Corriger l'injection via @PersistenceContext
+		initEm();
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Playlist> findAll() {

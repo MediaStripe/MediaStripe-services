@@ -12,6 +12,13 @@ import com.imie.services.AbstractPersistenceService;
 @Stateless
 public class MediaService extends AbstractPersistenceService<Media> {
 
+	/** Constructeur par défaut. */
+	public MediaService() {
+		super();
+		// TODO : Corriger l'injection via @PersistenceContext
+		initEm();
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Media> findAll() {

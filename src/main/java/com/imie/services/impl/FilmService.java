@@ -12,6 +12,13 @@ import com.imie.services.AbstractPersistenceService;
 @Stateless
 public class FilmService extends AbstractPersistenceService<Film> {
 
+	/** Constructeur par défaut. */
+	public FilmService() {
+		super();
+		// TODO : Corriger l'injection via @PersistenceContext
+		initEm();
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Film> findAll() {

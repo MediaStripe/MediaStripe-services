@@ -12,6 +12,13 @@ import com.imie.services.AbstractPersistenceService;
 @Stateless
 public class VideoService extends AbstractPersistenceService<Video> {
 
+	/** Constructeur par défaut. */
+	public VideoService() {
+		super();
+		// TODO : Corriger l'injection via @PersistenceContext
+		initEm();
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Video> findAll() {

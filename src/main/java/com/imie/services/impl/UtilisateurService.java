@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
@@ -65,16 +66,23 @@ public class UtilisateurService extends AbstractPersistenceService<Utilisateur> 
 		em.getTransaction().commit();
 	}
 	
-	
+	/**
+	 * Retourne l'utilisateur correspondant à l'adresse mail saisie en paramtètre.
+	 * @param mail l'adresse mail de l'utilisateur recherché.
+	 * @return L'utilisateur correspondant à l'adresse mail saisie.
+	 * @throws PersistenceException Si l'utilisateur n'existe pas en base.
+	 */
 	public Utilisateur findByEmail(final String mail) throws PersistenceException {
 		final Query query = em.createNamedQuery("Utilisateur.findByEmail");
 
 		query.setParameter("mail", mail);
 		
-		final Utilisateur utilisateur = (Utilisateur) query.getSingleResult();
-		
-		if(utilisateur == null) {
-			throw new PersistenceException("Aucun utilisateur n'existe pour l'adresse mail \"" + mail + "\".");
+		Utilisateur utilisateur = null;
+		try {
+			utilisateur = (Utilisateur) query.getSingleResult();
+		} catch (final PersistenceException e) {
+			System.err.println(new StringBuilder("Aucun utilisateur trouvé pour l'adresse mail suivante : ").append(mail).toString());
+			throw e;
 		}
 		
 		return utilisateur;
