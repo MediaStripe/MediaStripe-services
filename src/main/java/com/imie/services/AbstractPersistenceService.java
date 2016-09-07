@@ -1,7 +1,6 @@
 package com.imie.services;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 
@@ -22,7 +21,7 @@ public abstract class AbstractPersistenceService<T> implements
 	
 	// TODO : Supprimer une fois l'injection corrigée
 	protected void initEm() {
-		em = Persistence.createEntityManagerFactory("MediaStripe-entities").createEntityManager();
+		em = EntityManagerProvider.getEntityManager();
 	}
 
 	/**
