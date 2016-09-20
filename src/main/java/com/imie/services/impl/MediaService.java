@@ -4,8 +4,11 @@ import java.util.List;
 
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 
 import com.imie.entities.Media;
+import com.imie.entities.Utilisateur;
 import com.imie.services.AbstractPersistenceService;
 
 @Remote
@@ -18,7 +21,7 @@ public class MediaService extends AbstractPersistenceService<Media> {
 		// TODO : Corriger l'injection via @PersistenceContext
 		initEm();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Media> findAll() {
@@ -52,4 +55,18 @@ public class MediaService extends AbstractPersistenceService<Media> {
 		em.getTransaction().commit();
 	}
 
+	/**
+	 * Retourne les 20 derniers médias publiés.
+	 * 
+	 * @return La liste des 20 derniers médias publiés.
+	 */
+	public List<Media> getDerniersPublies() {
+		final Query query = em.createNamedQuery("Media.getDerniersPublies");
+
+		query.setMaxResults(20);
+		
+		List<Media> listeMedias = (List<Media>) query.getResultList();
+		
+		return listeMedias;
+	}
 }
