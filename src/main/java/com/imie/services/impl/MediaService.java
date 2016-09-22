@@ -14,8 +14,6 @@ import com.imie.services.AbstractPersistenceService;
 @Stateless
 public class MediaService extends AbstractPersistenceService<Media> {
 
-	private static final int A_CHAR = 97;
-
 	/** Constructeur par défaut. */
 	public MediaService() {
 		super();
@@ -88,7 +86,7 @@ public class MediaService extends AbstractPersistenceService<Media> {
 		final Query query = em.createQuery(querySql);
 
 		for (int i = 0; i < criteres.size(); i++) {
-			query.setParameter("critere" + ((char) (A_CHAR + i)), "%" + criteres.get(i) + "%");
+			query.setParameter(i + 1, "%" + criteres.get(i) + "%");
 		}
 
 		return query.getResultList();
@@ -110,11 +108,23 @@ public class MediaService extends AbstractPersistenceService<Media> {
 
 		requeteBuilder.append("WHERE m.id IN (").append(buildCriteresQuery(criteres)).append(") ");
 
-		requeteBuilder.append("AND m.id IN (").append(buildCategoriesQuery(categories)).append(") ");
+		if (getNombreCategoriesVoulues(categories) < categories.size()) {
+			requeteBuilder.append("AND m.id IN (").append(buildCategoriesQuery(categories)).append(") ");
+		}
 
 		requeteBuilder.append("AND m.publique = TRUE ");
 
 		return requeteBuilder.toString();
+	}
+
+	private int getNombreCategoriesVoulues(final Map<String, Boolean> listeCategories) {
+		int nombreCategoriesVoulues = 0;
+		for (final Map.Entry<String, Boolean> categorie : listeCategories.entrySet()) {
+			if (categorie.getValue()) {
+				nombreCategoriesVoulues++;
+			}
+		}
+		return nombreCategoriesVoulues;
 	}
 
 	/**
@@ -136,17 +146,18 @@ public class MediaService extends AbstractPersistenceService<Media> {
 		final StringBuilder requeteBuilder = new StringBuilder(
 				"SELECT mc.id FROM Media mc INNER JOIN mc.listeTags t WHERE");
 
-		for (int i = 0; i < listeCriteres.size(); i++) {
-			final char extension = (char) (A_CHAR + i);
-
-			if (i > 0) {
+		for (int i = 1; i <= listeCriteres.size(); i++) {
+			if (i > 1) {
 				requeteBuilder.append(" OR");
 			}
 
-			requeteBuilder.append(" mc.titre LIKE :").append("critere").append(extension);
-			requeteBuilder.append(" OR mc.description LIKE :").append("critere").append(extension);
-			requeteBuilder.append(" OR mc.mainTheme.libelle LIKE :").append("critere").append(extension);
-			requeteBuilder.append(" OR t.libelle LIKE :").append("critere").append(extension);
+			requeteBuilder.append(" mc.titre LIKE ?").append(i);
+			requeteBuilder.append(" OR mc.description LIKE ?").append(i);
+			requeteBuilder.append(" OR mc.mainTheme.libelle LIKE ?").append(i);
+			requeteBuilder.append(" OR t.libelle LIKE ?").append(i);
+			requeteBuilder.append(" OR mc.publieur.nom LIKE ?").append(i);
+			requeteBuilder.append(" OR mc.publieur.prenom LIKE ?").append(i);
+			requeteBuilder.append(" OR mc.publieur.mail LIKE ?").append(i);
 		}
 
 		return requeteBuilder.toString();
