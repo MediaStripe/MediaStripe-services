@@ -2,21 +2,19 @@ package com.imie.services.impl;
 
 import java.util.List;
 
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
-
 import com.imie.entities.Musique;
 import com.imie.services.AbstractPersistenceService;
+import com.imie.services.MusiqueService;
 
-@Remote
-@Stateless
-public class MusiqueService extends AbstractPersistenceService<Musique> {
 
+public class MusiqueServiceImpl extends AbstractPersistenceService implements MusiqueService {
+//	@Produces
+//	@PersistenceContext(unitName = "MediaStripe-entities")
+//	protected EntityManager em;
+	
 	/** Constructeur par défaut. */
-	public MusiqueService() {
+	public MusiqueServiceImpl() {
 		super();
-		// TODO : Corriger l'injection via @PersistenceContext
-		initEm();
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -2,29 +2,22 @@ package com.imie.services.impl;
 
 import java.util.List;
 
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 import com.imie.entities.Utilisateur;
 import com.imie.services.AbstractPersistenceService;
+import com.imie.services.UtilisateurService;
 
 /**
  * Service de persistence de l'entité {@link Utilisateur}.
  * @author takiguchi
  *
  */
-@Stateless
-@Remote
-public class UtilisateurService extends AbstractPersistenceService<Utilisateur> {
-
+public class UtilisateurServiceImpl extends AbstractPersistenceService implements UtilisateurService {
 	/** Constructeur par défaut. */
-	public UtilisateurService() {
+	public UtilisateurServiceImpl() {
 		super();
-		// TODO : Corriger l'injection via @PersistenceContext
-		initEm();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -66,12 +59,7 @@ public class UtilisateurService extends AbstractPersistenceService<Utilisateur> 
 		em.getTransaction().commit();
 	}
 	
-	/**
-	 * Retourne l'utilisateur correspondant à l'adresse mail saisie en paramtètre.
-	 * @param mail l'adresse mail de l'utilisateur recherché.
-	 * @return L'utilisateur correspondant à l'adresse mail saisie.
-	 * @throws PersistenceException Si l'utilisateur n'existe pas en base.
-	 */
+	@Override
 	public Utilisateur findByEmail(final String mail) throws PersistenceException {
 		final Query query = em.createNamedQuery("Utilisateur.findByEmail");
 
@@ -87,5 +75,4 @@ public class UtilisateurService extends AbstractPersistenceService<Utilisateur> 
 		
 		return utilisateur;
 	}
-
 }

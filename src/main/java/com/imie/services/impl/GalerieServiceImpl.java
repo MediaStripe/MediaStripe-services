@@ -2,21 +2,19 @@ package com.imie.services.impl;
 
 import java.util.List;
 
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
-
 import com.imie.entities.Galerie;
 import com.imie.services.AbstractPersistenceService;
+import com.imie.services.GalerieService;
 
-@Remote
-@Stateless
-public class GalerieService extends AbstractPersistenceService<Galerie> {
 
+public class GalerieServiceImpl extends AbstractPersistenceService implements GalerieService {
+//	@Produces
+//	@PersistenceContext(unitName = "MediaStripe-entities")
+//	protected EntityManager em;
+	
 	/** Constructeur par défaut. */
-	public GalerieService() {
+	public GalerieServiceImpl() {
 		super();
-		// TODO : Corriger l'injection via @PersistenceContext
-		initEm();
 	}
 	
 	@SuppressWarnings("unchecked")

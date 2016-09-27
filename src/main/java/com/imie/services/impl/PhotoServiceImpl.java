@@ -5,33 +5,34 @@ import java.util.List;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
-import com.imie.entities.Playlist;
+import com.imie.entities.Photo;
 import com.imie.services.AbstractPersistenceService;
+import com.imie.services.PhotoService;
 
-@Remote
-@Stateless
-public class PlaylistService extends AbstractPersistenceService<Playlist> {
 
+public class PhotoServiceImpl extends AbstractPersistenceService implements PhotoService {
+//	@Produces
+//	@PersistenceContext(unitName = "MediaStripe-entities")
+//	protected EntityManager em;
+	
 	/** Constructeur par défaut. */
-	public PlaylistService() {
+	public PhotoServiceImpl() {
 		super();
-		// TODO : Corriger l'injection via @PersistenceContext
-		initEm();
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Playlist> findAll() {
-		return em.createNamedQuery("Playlist.findAll").getResultList();
+	public List<Photo> findAll() {
+		return em.createNamedQuery("Photo.findAll").getResultList();
 	}
 
 	@Override
-	public Playlist findById(Integer id) {
-		return em.find(Playlist.class, id);
+	public Photo findById(Integer id) {
+		return em.find(Photo.class, id);
 	}
 
 	@Override
-	public void insert(Playlist entity) {
+	public void insert(Photo entity) {
 		em.getTransaction().begin();
 		em.persist(entity);
 		em.flush();
@@ -39,14 +40,14 @@ public class PlaylistService extends AbstractPersistenceService<Playlist> {
 	}
 
 	@Override
-	public void update(Playlist entity) {
+	public void update(Photo entity) {
 		em.getTransaction().begin();
 		em.merge(entity);
 		em.getTransaction().commit();
 	}
 
 	@Override
-	public void delete(Playlist entity) {
+	public void delete(Photo entity) {
 		em.getTransaction().begin();
 		em.remove(entity);
 		em.getTransaction().commit();

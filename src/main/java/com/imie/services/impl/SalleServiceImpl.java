@@ -2,21 +2,19 @@ package com.imie.services.impl;
 
 import java.util.List;
 
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
-
 import com.imie.entities.Salle;
 import com.imie.services.AbstractPersistenceService;
+import com.imie.services.SalleService;
 
-@Remote
-@Stateless
-public class SalleService  extends AbstractPersistenceService<Salle> {
 
+public class SalleServiceImpl extends AbstractPersistenceService implements SalleService 	{
+//	@Produces
+//	@PersistenceContext(unitName = "MediaStripe-entities")
+//	protected EntityManager em;
+	
 	/** Constructeur par défaut. */
-	public SalleService() {
+	public SalleServiceImpl() {
 		super();
-		// TODO : Corriger l'injection via @PersistenceContext
-		initEm();
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -2,21 +2,19 @@ package com.imie.services.impl;
 
 import java.util.List;
 
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
-
 import com.imie.entities.Episode;
 import com.imie.services.AbstractPersistenceService;
+import com.imie.services.EpisodeService;
 
-@Remote
-@Stateless
-public class EpisodeService extends AbstractPersistenceService<Episode> {
 
+public class EpisodeServiceImpl extends AbstractPersistenceService implements EpisodeService {
+//	@Produces
+//	@PersistenceContext(unitName = "MediaStripe-entities")
+//	protected EntityManager em;
+	
 	/** Constructeur par défaut. */
-	public EpisodeService() {
+	public EpisodeServiceImpl() {
 		super();
-		// TODO : Corriger l'injection via @PersistenceContext
-		initEm();
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -2,21 +2,19 @@ package com.imie.services.impl;
 
 import java.util.List;
 
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
-
 import com.imie.entities.Video;
 import com.imie.services.AbstractPersistenceService;
+import com.imie.services.VideoService;
 
-@Remote
-@Stateless
-public class VideoService extends AbstractPersistenceService<Video> {
 
+public class VideoServiceImpl extends AbstractPersistenceService implements VideoService {
+//	@Produces
+//	@PersistenceContext(unitName = "MediaStripe-entities")
+//	protected EntityManager em;
+	
 	/** Constructeur par défaut. */
-	public VideoService() {
+	public VideoServiceImpl() {
 		super();
-		// TODO : Corriger l'injection via @PersistenceContext
-		initEm();
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -2,23 +2,22 @@ package com.imie.services.impl;
 
 import java.util.List;
 
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import com.imie.entities.Tag;
 import com.imie.services.AbstractPersistenceService;
+import com.imie.services.TagService;
 
-@Remote
-@Stateless
-public class TagService extends AbstractPersistenceService<Tag> {
 
+public class TagServiceImpl extends AbstractPersistenceService implements TagService {
+//	@Produces
+//	@PersistenceContext(unitName = "MediaStripe-entities")
+//	protected EntityManager em;
+	
 	/** Constructeur par défaut. */
-	public TagService() {
+	public TagServiceImpl() {
 		super();
-		// TODO : Corriger l'injection via @PersistenceContext
-		initEm();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -54,14 +53,7 @@ public class TagService extends AbstractPersistenceService<Tag> {
 		em.getTransaction().commit();
 	}
 
-	/**
-	 * Retourne le tag correspondant au libellé passé en paramètre.
-	 * 
-	 * @param libelle
-	 *            Le libellé du tag recherché.
-	 * @return Le tag correspondant ou {@code null} s'il n'a pas été trouvé en
-	 *         base.
-	 */
+	@Override
 	public Tag findByLibelle(final String libelle) {
 		final Query query = em.createNamedQuery("Tag.findByLibelle");
 

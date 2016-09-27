@@ -3,22 +3,16 @@ package com.imie.services.impl;
 import java.util.List;
 import java.util.Map;
 
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import com.imie.entities.Media;
 import com.imie.services.AbstractPersistenceService;
+import com.imie.services.MediaService;
 
-@Remote
-@Stateless
-public class MediaService extends AbstractPersistenceService<Media> {
-
+public class MediaServiceImpl extends AbstractPersistenceService implements MediaService {
 	/** Constructeur par défaut. */
-	public MediaService() {
+	public MediaServiceImpl() {
 		super();
-		// TODO : Corriger l'injection via @PersistenceContext
-		initEm();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -54,11 +48,7 @@ public class MediaService extends AbstractPersistenceService<Media> {
 		em.getTransaction().commit();
 	}
 
-	/**
-	 * Retourne les 20 derniers médias publiés.
-	 * 
-	 * @return La liste des 20 derniers médias publiés.
-	 */
+	@Override
 	public List<Media> getDerniersPublies() {
 		final Query query = em.createNamedQuery("Media.getDerniersPublies");
 
@@ -69,17 +59,7 @@ public class MediaService extends AbstractPersistenceService<Media> {
 		return listeMedias;
 	}
 
-	/**
-	 * Effectue une recherche de médias en fonction des critères de sélection
-	 * passés en paramètre.
-	 * 
-	 * @param criteres
-	 *            Les critères de recherche, soit les mots clefs tapés par
-	 *            l'utilisateur.
-	 * @param categories
-	 *            Les types de médias voulus.
-	 * @return La liste des médias correspondant aux critères de recherche.
-	 */
+	@Override
 	public List<Media> search(final List<String> criteres, final Map<String, Boolean> categories) {
 		final String querySql = buildQuery(criteres, categories);
 

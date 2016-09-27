@@ -2,23 +2,24 @@ package com.imie.services.impl;
 
 import java.util.List;
 
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
+import javax.enterprise.inject.Produces;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 import com.imie.entities.Fichier;
 import com.imie.services.AbstractPersistenceService;
+import com.imie.services.FichierService;
 
-@Remote
-@Stateless
-public class FichierService extends AbstractPersistenceService<Fichier> {
-
+public class FichierServiceImpl extends AbstractPersistenceService implements FichierService {
+//	@Produces
+//	@PersistenceContext(unitName = "MediaStripe-entities")
+//	protected EntityManager em;
+	
 	/** Constructeur par défaut. */
-	public FichierService() {
+	public FichierServiceImpl() {
 		super();
-		// TODO : Corriger l'injection via @PersistenceContext
-		initEm();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -54,11 +55,7 @@ public class FichierService extends AbstractPersistenceService<Fichier> {
 		em.getTransaction().commit();
 	}
 	
-	/**
-	 * Retourne le fichier correspondant au chemin passé en paramètres.
-	 * @param cheminfichier Le chemin/nom du fichier.
-	 * @return Le fichier correspondant au chemin spécifié en paramètres.
-	 */
+	@Override
 	public Fichier findByPath(final String cheminfichier) {
 		final Query query = em.createNamedQuery("Fichier.findByPath");
 
