@@ -2,9 +2,6 @@ package com.imie.services.impl;
 
 import java.util.List;
 
-import javax.enterprise.inject.Produces;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
